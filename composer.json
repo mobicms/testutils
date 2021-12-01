@@ -1,0 +1,51 @@
+{
+    "name": "mobicms/testutils",
+    "description": "mobiCMS test utilities",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "mobicms",
+        "test",
+        "utilities"
+    ],
+    "authors": [
+        {
+            "name": "Oleg Kasyanov",
+            "role": "Team Lead, Developer",
+            "homepage": "https://github.com/batumibiz",
+            "email": "oleg@mobicms.org"
+        },
+        {
+            "name": "mobiCMS Contributors",
+            "homepage": "https://github.com/mobicms/testutils/graphs/contributors"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/mobicms/testutils",
+        "issues": "https://github.com/mobicms/testutils/issues"
+    },
+    "require": {
+        "php": "~8.0.0 || ~8.1.0",
+        "ext-pdo": "*",
+        "phpunit/phpunit": "^9.5"
+    },
+    "require-dev": {
+        "slevomat/coding-standard": "^7.0",
+        "squizlabs/php_codesniffer": "^3.6",
+        "vimeo/psalm": "^4.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mobicms\\Testutils\\": "src/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@static-analysis"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "static-analysis": "psalm --show-info=true"
+    }
+}
