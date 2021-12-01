@@ -9,7 +9,7 @@ use PDOException;
 
 trait DbHelpersTrait
 {
-    protected static ?PDO $pdo;
+    protected static PDO $pdo;
 
     protected static string $dbHost;
     protected static int $dbPort;
@@ -59,8 +59,7 @@ trait DbHelpersTrait
 
             return $pdo;
         } catch (PDOException $e) {
-            echo "\n\e[31m" . ' PDO EXCEPTION: ' . "\e[0m " . $e->getMessage() . "\n";
-            return null;
+            throw new \RuntimeException("\n\e[31m" . ' PDO EXCEPTION: ' . "\e[0m " . $e->getMessage() . "\n");
         }
     }
 
@@ -75,7 +74,7 @@ trait DbHelpersTrait
                 echo "\n" . implode("\n", $errors) . "\n";
             }
         } else {
-            $this->markTestSkipped('Database dump not found: ' . $file);
+            throw new \RuntimeException('Database dump not found: ' . $file);
         }
     }
 
