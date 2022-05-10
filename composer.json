@@ -24,15 +24,20 @@
         "source": "https://github.com/mobicms/testutils",
         "issues": "https://github.com/mobicms/testutils/issues"
     },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
     "require": {
         "php": "~8.0.0 || ~8.1.0",
         "ext-pdo": "*",
         "phpunit/phpunit": "^9.5"
     },
     "require-dev": {
-        "slevomat/coding-standard": "^7.0",
+        "slevomat/coding-standard": "^7.2",
         "squizlabs/php_codesniffer": "^3.6",
-        "vimeo/psalm": "^4.13"
+        "vimeo/psalm": "^4.23"
     },
     "autoload": {
         "psr-4": {
