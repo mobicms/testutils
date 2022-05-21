@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mobicms\Testutils;
 
 use PDO;
@@ -8,37 +10,31 @@ use PHPUnit\Framework\TestCase;
 
 class MysqlTestCase extends TestCase
 {
-    protected static PDO $pdo;
-
     protected static string $dbHost;
     protected static int $dbPort;
     protected static string $dbName;
     protected static string $dbUser;
     protected static string $dbPass;
-    protected static string $dsn;
+
+    protected static PDO $pdo;
 
     public static function setUpBeforeClass(): void
     {
-        // phpcs:disable
-        self::$dbHost = (string) ($GLOBALS['DB_HOST'] ?? 'localhost');
-        self::$dbPort = (int) ($GLOBALS['DB_PORT'] ?? 3306);
-        self::$dbName = (string) ($GLOBALS['TEST_DB_NAME'] ?? 'test_database');
-        self::$dbUser = (string) ($GLOBALS['DB_USER'] ?? 'root');
-        self::$dbPass = (string) ($GLOBALS['DB_PASS'] ?? 'root');
-        // phpcs:enable
-        self::$dsn = 'mysql:host=' . self::$dbHost . ';port=' . self::$dbPort
-            . ';dbname=' . self::$dbName . ';charset=utf8mb4';
+        self::$dbHost = (string) (defined('TEST_DB_HOST') ? TEST_DB_HOST : 'localhost');
+        self::$dbPort = (int) (defined('TEST_DB_PORT') ? TEST_DB_PORT : 3306);
+        self::$dbUser = (string) (defined('TEST_DB_USER') ? TEST_DB_USER : 'root');
+        self::$dbPass = (string) (defined('TEST_DB_PASS') ? TEST_DB_PASS : 'root');
+        self::$dbName = (string) (defined('TEST_DB_NAME') ? TEST_DB_NAME : 'tmp_test_database');
+
         self::$pdo = self::connect();
     }
 
     public static function tearDownAfterClass(): void
     {
-        if (self::$pdo instanceof PDO) {
-            self::$pdo->exec('DROP DATABASE IF EXISTS ' . self::$dbName);
-        }
+        self::$pdo->exec('DROP DATABASE IF EXISTS ' . self::$dbName);
     }
 
-    private static function connect(): ?PDO
+    private static function connect(): PDO
     {
         try {
             $pdo = new PDO(
@@ -64,7 +60,7 @@ class MysqlTestCase extends TestCase
 
     public function loadSqlDump(string $file): void
     {
-        if (null !== self::$pdo && file_exists($file)) {
+        if (file_exists($file)) {
             /** @var array<string> $errors */
             $errors = $this->parseSql($file, self::$pdo);
 
