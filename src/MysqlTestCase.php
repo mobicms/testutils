@@ -16,7 +16,7 @@ class MysqlTestCase extends TestCase
     private static string $dbUser = 'root';
     private static string $dbPass = 'root';
 
-    protected static PDO $pdo;
+    private static PDO $pdo;
 
     public static function setUpBeforeClass(): void
     {
@@ -44,6 +44,11 @@ class MysqlTestCase extends TestCase
     public static function tearDownAfterClass(): void
     {
         self::$pdo->exec('DROP DATABASE IF EXISTS ' . self::$dbName);
+    }
+
+    public static function getPdo(): PDO
+    {
+        return self::$pdo;
     }
 
     private static function fetchConfig()
