@@ -23,7 +23,7 @@ class MysqlTestCase extends TestCase
         try {
             self::fetchConfig();
             self::$pdo = new PDO(
-                sprintf('mysql:host=%s;port=%d;dbname=%s', self::$dbHost, self::$dbPort, self::$dbName),
+                sprintf('mysql:host=%s;port=%d', self::$dbHost, self::$dbPort),
                 self::$dbUser,
                 self::$dbPass,
                 [
