@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 
 class MysqlTestCase extends TestCase
 {
-    private static int $dbPort = 3306;
-    private static string $dbHost = 'localhost';
-    private static string $dbName = 'tmp_test_database';
-    private static string $dbUser = 'root';
-    private static string $dbPass = 'root';
+    protected static int $dbPort = 3306;
+    protected static string $dbHost = 'localhost';
+    protected static string $dbName = 'tmp_test_database';
+    protected static string $dbUser = 'root';
+    protected static string $dbPass = 'root';
 
     private static PDO $pdo;
 
