@@ -53,10 +53,16 @@
     "scripts": {
         "check": [
             "@cs-check",
-            "@static-analysis"
+            "@static-analysis",
+            "@test"
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
-        "static-analysis": "psalm --show-info=true"
+        "static-analysis": "psalm --show-info=true",
+        "test": "phpunit --colors=always",
+        "test-coverage": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit --colors=always --coverage-clover clover.xml --log-junit report.xml"
+        ]
     }
 }
