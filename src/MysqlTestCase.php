@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mobicms\Testutils;
 
 use PDO;
-use PDOException;
 use PHPUnit\Framework\TestCase;
 
 class MysqlTestCase extends TestCase
@@ -20,25 +19,21 @@ class MysqlTestCase extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        try {
-            self::fetchConfig();
-            self::$pdo = new PDO(
-                sprintf('mysql:host=%s;port=%d', self::$dbHost, self::$dbPort),
-                self::$dbUser,
-                self::$dbPass,
-                [
-                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                ]
-            );
-            self::$pdo->exec(
-                'CREATE DATABASE IF NOT EXISTS ' . self::$dbName .
-                ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;' .
-                'USE ' . self::$dbName
-            );
-        } catch (PDOException $e) {
-            throw new \RuntimeException("\n\e[31m" . ' PDO EXCEPTION: ' . "\e[0m " . $e->getMessage() . "\n");
-        }
+        self::fetchConfig();
+        self::$pdo = new PDO(
+            sprintf('mysql:host=%s;port=%d', self::$dbHost, self::$dbPort),
+            self::$dbUser,
+            self::$dbPass,
+            [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]
+        );
+        self::$pdo->exec(
+            'CREATE DATABASE IF NOT EXISTS ' . self::$dbName .
+            ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;' .
+            'USE ' . self::$dbName
+        );
     }
 
     public static function tearDownAfterClass(): void
@@ -51,7 +46,7 @@ class MysqlTestCase extends TestCase
         return self::$pdo;
     }
 
-    private static function fetchConfig()
+    private static function fetchConfig(): void
     {
         if (defined('TEST_DB_HOST')) {
             self::$dbHost = (string) TEST_DB_HOST;
