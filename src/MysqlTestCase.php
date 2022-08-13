@@ -20,7 +20,7 @@ class MysqlTestCase extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::fetchConfig();
-        self::$pdo = new PDO(
+        $pdo = new PDO(
             sprintf('mysql:host=%s;port=%d', self::$dbHost, self::$dbPort),
             self::$dbUser,
             self::$dbPass,
@@ -29,11 +29,9 @@ class MysqlTestCase extends TestCase
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             ]
         );
-        self::$pdo->exec(
-            'CREATE DATABASE IF NOT EXISTS ' . self::$dbName .
-            ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;' .
-            'USE ' . self::$dbName
-        );
+        $pdo->exec(sprintf('CREATE DATABASE IF NOT EXISTS %s CHARACTER SET utf8mb4', self::$dbName));
+        $pdo->exec(sprintf('USE %s', self::$dbName));
+        self::$pdo = $pdo;
     }
 
     public static function tearDownAfterClass(): void
