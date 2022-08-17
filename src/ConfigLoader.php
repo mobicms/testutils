@@ -14,36 +14,26 @@ class ConfigLoader
 
     public function host(): string
     {
-        return defined('TEST_DB_HOST')
-            ? (string) TEST_DB_HOST
-            : $this->defaultHost;
+        return (string) ($GLOBALS['test_db_host'] ?? $this->defaultHost);
     }
 
     public function port(): int
     {
-        return defined('TEST_DB_PORT')
-            ? (int) TEST_DB_PORT
-            : $this->defaultPort;
+        return (int) ($GLOBALS['test_db_port'] ?? $this->defaultPort);
     }
 
     public function user(): string
     {
-        return defined('TEST_DB_USER')
-            ? (string) TEST_DB_USER
-            : $this->defaultUser;
+        return (string) ($GLOBALS['test_db_user'] ?? $this->defaultUser);
     }
 
     public function password(): string
     {
-        return defined('TEST_DB_PASS')
-            ? (string) TEST_DB_PASS
-            : $this->defaultPassword;
+        return (string) ($GLOBALS['test_db_pass'] ?? $this->defaultPassword);
     }
 
     public function dbName(): string
     {
-        return defined('TEST_DB_NAME')
-            ? (string) TEST_DB_NAME
-            : $this->defaultDbName;
+        return (string) ($GLOBALS['test_db_name'] ?? $this->defaultDbName);
     }
 }

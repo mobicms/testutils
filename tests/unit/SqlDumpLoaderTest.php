@@ -68,11 +68,11 @@ class SqlDumpLoaderTest extends TestCase
         return new PDO(
             sprintf(
                 'mysql:host=%s;port=%d',
-                (defined('TEST_DB_HOST') ? TEST_DB_HOST : 'localhost'),
-                (defined('TEST_DB_PORT') ? TEST_DB_PORT : 3306)
+                ($GLOBALS['test_db_host'] ?? 'localhost'),
+                ($GLOBALS['test_db_port'] ?? 3306)
             ),
-            (defined('TEST_DB_USER') ? TEST_DB_USER : 'root'),
-            (defined('TEST_DB_PASS') ? TEST_DB_PASS : 'root')
+            ($GLOBALS['test_db_user'] ?? 'root'),
+            ($GLOBALS['test_db_pass'] ?? 'root')
         );
     }
 }
