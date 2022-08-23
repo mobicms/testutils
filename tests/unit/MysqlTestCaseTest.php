@@ -14,7 +14,7 @@ class MysqlTestCaseTest extends TestCase
 
     public function setUp(): void
     {
-        $this->dbName = isset($GLOBALS['test_db_name']) ? $GLOBALS['test_db_name'] : '';
+        $this->dbName = $GLOBALS['test_db_name'] ?? 'tmp_test_database';
         MysqlTestCase::setUpBeforeClass();
     }
 
