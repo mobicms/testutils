@@ -40,7 +40,7 @@ class SqlDumpLoader
     private function splitSql(string $file): array
     {
         $query = trim(file_get_contents($file));
-        preg_match_all('/([^;]*?((\'.*?\')|(".*?"))?)*(;\s*|\s*$)/', $query, $matches);
+        preg_match_all('/([^;]*?((\'.*?\')|(".*?"))?)*?(;\s*|\s*$)/', $query, $matches); //NOSONAR
 
         return $matches[0];
     }
