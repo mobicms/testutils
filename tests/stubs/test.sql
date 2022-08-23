@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS `test`
 ) ENGINE = MyISAM;
 
 INSERT INTO `test` (`id`, `name`)
-VALUES (1, 'foo'),
+VALUES (1, 'foo;'),
        (2, 'bar'),
        (3, 'baz');

@@ -35,7 +35,7 @@ class SqlDumpLoaderTest extends TestCase
         $result = $this->pdo->query('SELECT * FROM `test`')->fetchAll();
 
         $this->assertFalse($this->loader->hasErrors());
-        $this->assertEquals('foo', $result[0][1]);
+        $this->assertEquals('foo;', $result[0][1]);
         $this->assertEquals('bar', $result[1][1]);
         $this->assertEquals('baz', $result[2][1]);
     }
