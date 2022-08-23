@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MobicmsTest;
 
+use Mobicms\Testutils\Exception\MissingFileException;
 use Mobicms\Testutils\SqlDumpLoader;
 use PDO;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 class SqlDumpLoaderTest extends TestCase
 {
@@ -42,7 +42,7 @@ class SqlDumpLoaderTest extends TestCase
 
     public function testThrowExceptionOnMissingSqlFile(): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(MissingFileException::class);
         $this->loader->loadFile('invalid_file');
     }
 

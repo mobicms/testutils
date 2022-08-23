@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Mobicms\Testutils;
 
+use Mobicms\Testutils\Exception\MissingFileException;
 use PDO;
 use PDOException;
-use RuntimeException;
 
 class SqlDumpLoader
 {
@@ -21,7 +21,7 @@ class SqlDumpLoader
     public function loadFile(string $file): void
     {
         if (! is_file($file)) {
-            throw new RuntimeException('Database dump not found: ' . $file);
+            throw new MissingFileException('Database dump not found: ' . $file);
         }
 
         $this->queryDb($this->splitSql($file));
