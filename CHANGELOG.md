@@ -4,7 +4,7 @@ The format is based on [Keep a Changelog][changelog]
 and this project adheres to [Semantic Versioning][semver].  
 Detailed changes can see in the [repository log].
 
-## Unreleased
+## [Unreleased]
 
 #### Added
 - Nothing
@@ -23,6 +23,14 @@ Detailed changes can see in the [repository log].
 
 #### Security
 - Nothing
+
+
+## [1.0.0] - 2022-08-24
+Initial release
+
+
+[Unreleased]: https://github.com/mobicms/testutils/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/mobicms/testutils/releases/tag/1.0.0
 
 [repository log]: https://github.com/mobicms/testutils/commits
 [changelog]: http://keepachangelog.com/en/1.0.0
