@@ -24,7 +24,10 @@ class SqlDumpLoader
             throw new MissingFileException('Database dump not found: ' . $file);
         }
 
-        $this->queryDb($this->splitSql($file));
+        /** @var string $query */
+        foreach ($this->splitSql(file_get_contents($file)) as $query) {
+            $this->queryDb(trim($query));
+        }
     }
 
     public function hasErrors(): bool
@@ -37,23 +40,18 @@ class SqlDumpLoader
         return $this->errors;
     }
 
-    private function splitSql(string $file): array
+    private function splitSql(string $sql): array
     {
-        return preg_split('~\([^)]*\)(*SKIP)(*F)|;~', file_get_contents($file));
+        return preg_split('~\([^)]*\)(*SKIP)(*F)|;~', $sql);
     }
 
-    private function queryDb(array $sql): void
+    private function queryDb(string $query): void
     {
-        /** @var string $query */
-        foreach ($sql as $query) {
-            $query = trim($query);
-
-            if (! empty($query) && $query != '#') {
-                try {
-                    $this->pdo->query($query);
-                } catch (PDOException $e) {
-                    $this->errors[] = $e->getMessage();
-                }
+        if (! empty($query)) {
+            try {
+                $this->pdo->query($query);
+            } catch (PDOException $e) {
+                $this->errors[] = $e->getMessage();
             }
         }
     }
