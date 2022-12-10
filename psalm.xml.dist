@@ -3,6 +3,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://getpsalm.org/schema/config"
         xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        findUnusedPsalmSuppress="true"
+        findUnusedCode="true"
 >
     <projectFiles>
         <directory name="src"/>
@@ -11,7 +13,18 @@
         </ignoreFiles>
     </projectFiles>
 
-    <plugins>
-        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
-    </plugins>
+    <issueHandlers>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <file name="src/MysqlTestCase.php"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+
+        <UnusedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Mobicms\Testutils\MysqlTestCase"/>
+                <referencedClass name="Mobicms\Testutils\SqlDumpLoader"/>
+            </errorLevel>
+        </UnusedClass>
+    </issueHandlers>
 </psalm>
