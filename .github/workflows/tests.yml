@@ -1,11 +1,11 @@
-name: Tests
+name: tests
 on: [ push, pull_request ]
 
 jobs:
   tests:
     strategy:
       matrix:
-        php-versions: [ '8.0', '8.1' ]
+        php-versions: [ '8.0', '8.1', '8.2' ]
 
     runs-on: ubuntu-latest
 
@@ -42,12 +42,12 @@ jobs:
         run: sudo /etc/init.d/mysql start
 
       - name: PhpUnit test
-        if: matrix.php-versions != '8.1'
+        if: matrix.php-versions != '8.2'
         run: composer test
         continue-on-error: true
 
       - name: PhpUnit test-coverage
-        if: matrix.php-versions == '8.1'
+        if: matrix.php-versions == '8.2'
         working-directory: ./
         run: |
           composer test-coverage
@@ -55,7 +55,7 @@ jobs:
           sed -i 's/\/home\/runner\/work\/testutils\/testutils\//\/github\/workspace\//g' clover.xml
 
       - name: Upload coverage report
-        if: matrix.php-versions == '8.1'
+        if: matrix.php-versions == '8.2'
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,7 +72,7 @@ jobs:
             -Dsonar.php.coverage.reportPaths=clover.xml
 
       - name: Test with latest dependencies
-        if: matrix.php-versions == '8.1'
+        if: matrix.php-versions == '8.2'
         run: |
           composer update
           composer test
