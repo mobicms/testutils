@@ -25,11 +25,18 @@ Detailed changes can see in the [repository log].
 - Nothing
 
 
+## [1.1.0] - 2022-12-10
+
+#### Added
+- Compatibility with PHP 8.2
+
+
 ## [1.0.0] - 2022-08-24
 Initial release
 
 
-[Unreleased]: https://github.com/mobicms/testutils/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/mobicms/testutils/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/mobicms/testutils/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/mobicms/testutils/releases/tag/1.0.0
 
 [repository log]: https://github.com/mobicms/testutils/commits
