@@ -5,7 +5,7 @@ jobs:
   tests:
     strategy:
       matrix:
-        php-versions: [ '8.1', '8.2' ]
+        php-versions: [ '8.1', '8.2', '8.3' ]
 
     runs-on: ubuntu-latest
 
@@ -42,12 +42,12 @@ jobs:
         run: sudo /etc/init.d/mysql start
 
       - name: Test
-        if: matrix.php-versions != '8.1'
+        if: matrix.php-versions != '8.2'
         run: composer test
         continue-on-error: true
 
       - name: Test with Coverage
-        if: matrix.php-versions == '8.1'
+        if: matrix.php-versions == '8.2'
         working-directory: ./
         run: |
           composer test-coverage
@@ -55,7 +55,7 @@ jobs:
           sed -i 's/\/home\/runner\/work\/testutils\/testutils\//\/github\/workspace\//g' clover.xml
 
       - name: Scan code with SonarCloud
-        if: matrix.php-versions == '8.1'
+        if: matrix.php-versions == '8.2'
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
