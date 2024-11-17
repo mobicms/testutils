@@ -13,69 +13,69 @@ class ConfigLoaderTest extends TestCase
     {
         $GLOBALS['test_db_host'] = 'test_host';
         $config = new ConfigLoader();
-        $this->assertSame('test_host', $config->host());
+        self::assertSame('test_host', $config->host());
     }
 
     public function testHostReturnsDefaultVariable(): void
     {
         unset($GLOBALS['test_db_host']);
         $config = new ConfigLoader();
-        $this->assertSame('localhost', $config->host());
+        self::assertSame('localhost', $config->host());
     }
 
     public function testPortReturnsGlobalVariable(): void
     {
         $GLOBALS['test_db_port'] = 9999;
         $config = new ConfigLoader();
-        $this->assertSame(9999, $config->port());
+        self::assertSame(9999, $config->port());
     }
 
     public function testPortReturnsDefaultVariable(): void
     {
         unset($GLOBALS['test_db_port']);
         $config = new ConfigLoader();
-        $this->assertSame(3306, $config->port());
+        self::assertSame(3306, $config->port());
     }
 
     public function testUserReturnsGlobalVariable(): void
     {
         $GLOBALS['test_db_user'] = 'test_user';
         $config = new ConfigLoader();
-        $this->assertSame('test_user', $config->user());
+        self::assertSame('test_user', $config->user());
     }
 
     public function testUserReturnsDefaultVariable(): void
     {
         unset($GLOBALS['test_db_user']);
         $config = new ConfigLoader();
-        $this->assertSame('root', $config->user());
+        self::assertSame('root', $config->user());
     }
 
     public function testPasswordReturnsGlobalVariable(): void
     {
         $GLOBALS['test_db_pass'] = 'test_pass';
         $config = new ConfigLoader();
-        $this->assertSame('test_pass', $config->password());
+        self::assertSame('test_pass', $config->password());
     }
 
     public function testPasswordReturnsDefaultVariable(): void
     {
         unset($GLOBALS['test_db_pass']);
         $config = new ConfigLoader();
-        $this->assertSame('root', $config->password());
+        self::assertSame('root', $config->password());
     }
 
     public function testDbNameReturnsGlobalVariable(): void
     {
         $GLOBALS['test_db_name'] = 'test_name';
         $config = new ConfigLoader();
-        $this->assertSame('test_name', $config->dbName());
+        self::assertSame('test_name', $config->dbName());
     }
 
     public function testDbNameReturnsDefaultVariable(): void
     {
         unset($GLOBALS['test_db_name']);
         $config = new ConfigLoader();
-        $this->assertSame('tmp_test_database', $config->dbName());
+        self::assertSame('tmp_test_database', $config->dbName());
     }
 }

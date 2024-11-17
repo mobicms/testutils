@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MobicmsTest;
 
 use Mobicms\Testutils\MysqlTestCase;
-use PDO;
 use PHPUnit\Framework\TestCase;
 
 class MysqlTestCaseTest extends TestCase
@@ -18,19 +17,13 @@ class MysqlTestCaseTest extends TestCase
         MysqlTestCase::setUpBeforeClass();
     }
 
-    public function testCanGetPdoInstance(): void
-    {
-        $pdo = MysqlTestCase::getPdo();
-        $this->assertInstanceOf(PDO::class, $pdo);
-    }
-
     public function testCanCreateTemporaryDatabase(): void
     {
         $pdo = MysqlTestCase::getPdo();
         $result = $pdo
             ->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$this->dbName'")
             ->rowCount();
-        $this->assertEquals(1, $result);
+        self::assertEquals(1, $result);
     }
 
     public function testCanDestroyTemporaryDatabase(): void
@@ -40,6 +33,6 @@ class MysqlTestCaseTest extends TestCase
         $result = $pdo
             ->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$this->dbName'")
             ->rowCount();
-        $this->assertEquals(0, $result);
+        self::assertEquals(0, $result);
     }
 }

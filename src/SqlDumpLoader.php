@@ -11,6 +11,10 @@ use PDOException;
 class SqlDumpLoader
 {
     private PDO $pdo;
+
+    /**
+     * @var array<string>
+     */
     private array $errors = [];
 
     public function __construct(PDO $pdo)
@@ -32,14 +36,20 @@ class SqlDumpLoader
 
     public function hasErrors(): bool
     {
-        return ! empty($this->errors);
+        return $this->errors !== [];
     }
 
+    /**
+     * @return array<string>
+     */
     public function getErrors(): array
     {
         return $this->errors;
     }
 
+    /**
+     * @return array<string>
+     */
     private function splitSql(string $sql): array
     {
         return preg_split('~\([^)]*\)(*SKIP)(*F)|;~', $sql);
@@ -47,7 +57,7 @@ class SqlDumpLoader
 
     private function queryDb(string $query): void
     {
-        if (! empty($query)) {
+        if ($query !== '') {
             try {
                 $this->pdo->query($query);
             } catch (PDOException $e) {

@@ -34,10 +34,10 @@ class SqlDumpLoaderTest extends TestCase
         $this->loader->loadFile(__DIR__ . '/../stubs/test.sql');
         $result = $this->pdo->query('SELECT * FROM `test`')->fetchAll();
 
-        $this->assertFalse($this->loader->hasErrors());
-        $this->assertEquals('foo;', $result[0][1]);
-        $this->assertEquals('bar', $result[1][1]);
-        $this->assertEquals('baz', $result[2][1]);
+        self::assertFalse($this->loader->hasErrors());
+        self::assertEquals('foo;', $result[0][1]);
+        self::assertEquals('bar', $result[1][1]);
+        self::assertEquals('baz', $result[2][1]);
     }
 
     public function testThrowExceptionOnMissingSqlFile(): void
@@ -46,21 +46,20 @@ class SqlDumpLoaderTest extends TestCase
         $this->loader->loadFile('invalid_file');
     }
 
-    public function testHasErrors()
+    public function testHasErrors(): void
     {
         $this->loader->loadFile(__DIR__ . '/../stubs/test.sql');
-        $this->assertFalse($this->loader->hasErrors());
+        self::assertFalse($this->loader->hasErrors());
 
         $this->loader->loadFile(__DIR__ . '/../stubs/test_errors.sql');
-        $this->assertTrue($this->loader->hasErrors());
+        self::assertTrue($this->loader->hasErrors());
     }
 
-    public function testGetErrors()
+    public function testGetErrors(): void
     {
         $this->loader->loadFile(__DIR__ . '/../stubs/test_errors.sql');
         $errors = $this->loader->getErrors();
-        $this->assertIsArray($errors);
-        $this->assertStringContainsString('SQLSTATE[42S02]', $errors[0]);
+        self::assertStringContainsString('SQLSTATE[42S02]', $errors[0]);
     }
 
     private function connect(): PDO
