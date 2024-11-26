@@ -25,6 +25,16 @@ Detailed changes can see in the [repository log].
 - Nothing
 
 
+## [2.0.0] - 2024-11-27
+
+#### Added
+- Compatibility with PHP 8.3 and 8.4
+
+#### Changed
+- PhpUnit updated to version 11
+- Small code improvements
+
+
 ## [1.1.0] - 2022-12-10
 
 #### Added
@@ -35,7 +45,8 @@ Detailed changes can see in the [repository log].
 Initial release
 
 
-[Unreleased]: https://github.com/mobicms/testutils/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/mobicms/testutils/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/mobicms/testutils/compare/1.1.0...2.0.0
 [1.1.0]: https://github.com/mobicms/testutils/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/mobicms/testutils/releases/tag/1.0.0
 
