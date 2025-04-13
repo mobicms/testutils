@@ -7,11 +7,15 @@ namespace Mobicms\Testutils;
 use PDO;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @psalm-api
+ */
 class MysqlTestCase extends TestCase
 {
     private static ConfigLoader $config;
     private static PDO $pdo;
 
+    #[\Override]
     public static function setUpBeforeClass(): void
     {
         $config = new ConfigLoader();
@@ -31,6 +35,7 @@ class MysqlTestCase extends TestCase
         self::$pdo = $pdo;
     }
 
+    #[\Override]
     public static function tearDownAfterClass(): void
     {
         self::$pdo->exec('DROP DATABASE IF EXISTS ' . self::$config->dbName());

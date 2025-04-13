@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mobicms\Testutils;
 
-class ConfigLoader
+final class ConfigLoader
 {
     private int $defaultPort = 3306;
     private string $defaultHost = 'localhost';

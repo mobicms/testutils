@@ -8,7 +8,10 @@ use Mobicms\Testutils\Exception\MissingFileException;
 use PDO;
 use PDOException;
 
-class SqlDumpLoader
+/**
+ * @psalm-api
+ */
+final class SqlDumpLoader
 {
     private PDO $pdo;
 
@@ -28,9 +31,12 @@ class SqlDumpLoader
             throw new MissingFileException('Database dump not found: ' . $file);
         }
 
-        /** @var string $query */
-        foreach ($this->splitSql(file_get_contents($file)) as $query) {
-            $this->queryDb(trim($query));
+        $content = file_get_contents($file);
+
+        if ($content !== false) {
+            foreach ($this->splitSql($content) as $query) {
+                $this->queryDb(trim($query));
+            }
         }
     }
 
@@ -52,7 +58,13 @@ class SqlDumpLoader
      */
     private function splitSql(string $sql): array
     {
-        return preg_split('~\([^)]*\)(*SKIP)(*F)|;~', $sql);
+        $split = preg_split('~\([^)]*\)(*SKIP)(*F)|;~', $sql);
+
+        if ($split === false) {
+            throw new \RuntimeException('Unable to split SQL');
+        }
+
+        return $split;
     }
 
     private function queryDb(string $query): void
