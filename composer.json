@@ -32,7 +32,7 @@
     "require": {
         "php": "~8.2 || ~8.3 || ~8.4",
         "ext-pdo": "*",
-        "phpunit/phpunit": "^11.5"
+        "phpunit/phpunit": "^12.2 || 11.5"
     },
     "require-dev": {
         "slevomat/coding-standard": "^8.19",
